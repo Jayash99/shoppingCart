@@ -64,15 +64,15 @@ function ShoppingCart () {
                   cart.forEach(cartItem=>{
                     if (cartItem.name===item.name){
                       cartItem.quantity-=1
-                      let newTotal;
-                      cart.length>1?newTotal = total-cartItem.price:newTotal = cartItem.quantity*cartItem.price
-            
-                      setTotal(newTotal)
-                      if(cartItem.quantity===0){
-                        const index = cart.indexOf(el=>el.quantity===0)
-                        const newCart = cart.splice(index,1)
-                        setCart([...newCart])
+                      if(cartItem.quantity<=0){
+                        const index = cart.indexOf(cartItem)
+                        cart.splice(index,1)
+                        setCart([...cart])
                       }
+                      let newTotal;
+                      cart.length>=1?newTotal = total-cartItem.price:newTotal = cartItem.quantity*cartItem.price
+                      setTotal(newTotal)
+                      
                     }
                   })
                   setCart([...cart])
